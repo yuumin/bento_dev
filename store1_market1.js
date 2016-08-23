@@ -12,19 +12,10 @@
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
       if(day == 1)
       {
-        
         activity.purchaseNum = 300;
         activity.obentoId = 'TAKE';
       }
       else if(day >= 2){
-        if (storeInfo.capitalStock < 12000){
-          activity.purchaseNum = capitalStock/getOniPri;
-          activity.obentoId = 'ONIGIRI';
-        }
-        else
-        {
-          return;
-        }
         var yesterday = histories[day - 2];
         var actual = yesterday.storeActuals[myStore.id];
         if(yesterday.weather == ObentoMarket.Weather.SHINE){
