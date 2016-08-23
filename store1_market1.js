@@ -14,7 +14,7 @@
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
       if(day == 1)
       {
-        purchaseNum = 300;
+        activity.purchaseNum = 300;
         activity.obentoId = 'TAKE';
       }
       else if(day >= 2){
