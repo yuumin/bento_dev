@@ -10,7 +10,7 @@
       const matsuPri = 40;
       const getMatsuPri = 1200;
       const stromPro = 0.1;
-      const rate = 0.8;
+      const rate = 0.80;
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
       if(day == 1)
       {
@@ -32,7 +32,7 @@
         }
         else
         {
-          activity.purchaseNum = 300;
+          activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
           activity.obentoId = 'TAKE';
         }
       }
