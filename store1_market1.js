@@ -94,7 +94,8 @@ function maxNumCheck(max, input)
           }
           else
           {
-            activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
+            purchaseNumInput = Math.floor((storeInfo.capitalStock/1000)*rate);
+            activity.purchaseNum = maxNumCheck(maxNum,purchaseNumInput);
             activity.obentoId = 'TAKE';
           }
         }
