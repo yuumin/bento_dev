@@ -11,8 +11,8 @@
       const getMatsuPri = 1200;
       const stromPro = 0.1;
       const rate = 0.80;
-      const rand = Math.floor(Math.random()*7)+1; //1~7の整数型変数を生成
-      const upperline = 100000;
+      const rand = 1 //Math.floor(Math.random()*6)+1; //1~7の整数型変数を生成
+      const upperline = 100000000;
       const underline = 12000;
 
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
