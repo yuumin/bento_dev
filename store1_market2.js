@@ -12,7 +12,7 @@
       // something();
       return {
         obentoId: 'ONIGIRI',
-        purchaseNum: 5000,
+        purchaseNum: 500,
         salesPrice: 443
       }
     }
