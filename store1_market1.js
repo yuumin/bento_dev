@@ -1,6 +1,6 @@
 (function() {
 
-  var myStore = ObentoMarket.Store.entry('葉加瀬',function(day) {
+  var myStore = ObentoMarket.Store.entry('りんご',function(day) {
       var storeInfo = ObentoMarket.Store.getById(myStore.id);
       var histories = ObentoMarket.getHistory();
 
@@ -11,6 +11,9 @@
       const getMatsuPri = 1200;
       const stromPro = 0.1;
       const rate = 0.80;
+      const rand = Math.floor(Math.random()*6)+1;
+      const line = 100000;
+
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
       if(day == 1)
       {
@@ -20,20 +23,47 @@
       else if(day >= 2){
         var yesterday = histories[day - 2];
         var actual = yesterday.storeActuals[myStore.id];
-        if(yesterday.weather == ObentoMarket.Weather.SHINE){
-          activity.purchaseNum = Math.floor((storeInfo.capitalStock/1200)*rate);
-          activity.obentoId = 'MATSU';
-        }else if (yesterday.weather == ObentoMarket.Weather.CLOUD){
-          activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
-          activity.obentoId = 'TAKE';
-        }else if (yesterday.weather == ObentoMarket.Weather.RAIN){
-          activity.purchaseNum = Math.floor((storeInfo.capitalStock/800)*rate);
-          activity.obentoId = 'UME';
+        if(storeInfo.capitalStock > line){
+            if(rand == 1)
+            {
+              activity.purchaseNum = Math.floor((storeInfo.capitalStock/200)*rate);
+              activity.obentoId = 'ONIGIRI';
+            }
+            else
+            {
+            if(yesterday.weather == ObentoMarket.Weather.SHINE){
+            activity.purchaseNum = Math.floor((storeInfo.capitalStock/1200)*rate);
+            activity.obentoId = 'MATSU';
+            }else if (yesterday.weather == ObentoMarket.Weather.CLOUD){
+              activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
+              activity.obentoId = 'TAKE';
+            }else if (yesterday.weather == ObentoMarket.Weather.RAIN){
+              activity.purchaseNum = Math.floor((storeInfo.capitalStock/800)*rate);
+              activity.obentoId = 'UME';
+            }
+            else
+            {
+              activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
+              activity.obentoId = 'TAKE';
+            }
+          }
         }
-        else
-        {
-          activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
-          activity.obentoId = 'TAKE';
+        else{
+          if(yesterday.weather == ObentoMarket.Weather.SHINE){
+            activity.purchaseNum = Math.floor((storeInfo.capitalStock/1200)*rate);
+            activity.obentoId = 'MATSU';
+          }else if (yesterday.weather == ObentoMarket.Weather.CLOUD){
+            activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
+            activity.obentoId = 'TAKE';
+          }else if (yesterday.weather == ObentoMarket.Weather.RAIN){
+            activity.purchaseNum = Math.floor((storeInfo.capitalStock/800)*rate);
+            activity.obentoId = 'UME';
+          }
+          else
+          {
+            activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
+            activity.obentoId = 'TAKE';
+          }
         }
       }
 
