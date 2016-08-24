@@ -11,19 +11,29 @@
       const getMatsuPri = 1200;
       const stromPro = 0.1;
       const rate = 0.80;
-      const rand = Math.floor(Math.random()*6)+1;
-      const line = 100000;
+      const rand = Math.floor(Math.random()*7)+1; //1~7の整数型変数を生成
+      const upperline = 100000;
+      const underline = 12000;
 
       maxNum = Math.floor((minOniPri - storeInfo.capitalStock)/(stromPro*matsuPri - getMatsuPri))-3;
       if(day == 1)
       {
         activity.purchaseNum = 300;
-        activity.obentoId = 'TAKE';
+        activity.obentoId = 'MATSU';
       }
       else if(day >= 2){
         var yesterday = histories[day - 2];
         var actual = yesterday.storeActuals[myStore.id];
-        if(storeInfo.capitalStock > line){
+        if(storeInfo.capitalStock < underline)
+          {
+            activity.purchaseNum = Math.floor(storeInfo.capitalStock/200);
+            activity.obentoId = 'ONIGIRI';
+          }
+          else
+          {
+          }
+        if(storeInfo.capitalStock > upperline)
+          {
             if(rand == 1)
             {
               activity.purchaseNum = Math.floor((storeInfo.capitalStock/200)*rate);
@@ -43,12 +53,13 @@
             }
             else
             {
-              activity.purchaseNum = Math.floor((storeInfo.capitalStock/1000)*rate);
-              activity.obentoId = 'TAKE';
+              activity.purchaseNum = Math.floor((storeInfo.capitalStock/1200)*rate);
+              activity.obentoId = 'MATSU';
             }
           }
         }
-        else{
+        else
+        {
           if(yesterday.weather == ObentoMarket.Weather.SHINE){
             activity.purchaseNum = Math.floor((storeInfo.capitalStock/1200)*rate);
             activity.obentoId = 'MATSU';
@@ -66,16 +77,7 @@
           }
         }
       }
-
-
       return activity;
     }
   );
-
 })();
-
-function SetpurchaseNum(rate, price){
-  var purchaseNum;
-  purchaseNum = Math.floor((capitalStock/price)*rate)
-  return purchaseNum;
-}
