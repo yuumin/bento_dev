@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>市場2プログラム検証用画面</title>
+    <style type="text/css">
+        #result-table {
+            border-collapse: collapse;
+            border: 1px #333 solid;
+            background-color: #FFF;
+        }
+
+        #result-table td {
+            border: 1px #333 solid;
+        }
+    </style>
+
+    <script type="text/javascript" src="js/lib/jquery.js"></script>
+    <script type="text/javascript" src="js/lib/underscore.js"></script>
+    <script type="text/javascript" src="js/lib/obentomarket-core.js"></script>
+    <script type="text/javascript" src="./store1_market2.js"></script>
+    <script type="text/javascript" src="./store2_market2.js"></script>
+    <script type="text/javascript" src="./store3_market2.js"></script>
+</head>
+<body>
+
+<h3>市場2 プログラム検証用画面</h3>
+<br/>
+<input id="start-btn" value="ゲーム開始" type="button"/>
+<input id="reset-btn" value="リセット" type="button"/>
+<br/>
+<textarea id="result-csv"></textarea><br/>
+<span style="font-size: 10px;">お店の名前をクリックすると結果がCSVで表示されます。</span>
+
+<br/>
+<table id="result-table">
+</table>
+
+
+<script type="text/template" id="tpl_store_cell">
+<td style="background-color: #0B0B61;">
+    <div style="text-align: center; color: #FFF; cursor: pointer;" onClick="CSVCreator.create('<%= storeId %>')"><%= storeName %></div>
+</td>
+</script>
+
+<script type="text/template" id="tpl_date_info_cell">
+<td style="background-color: <%= attrs.weatherColor %>">
+    <div style="width: 100px; text-align: center;">
+        <div><%= day %></div>
+        <div><%= weather %></div>
+    </div>
+</td>
+</script>
+
+<script type="text/template" id="tpl_date_actual_cell">
+<td>
+    <div style="float: left; width: 120px; text-align: center;">
+        <div style="border-bottom: 1px #CCC solid; border-right: 1px #CCC solid;"><%= productName %></div>
+        <div style="border-bottom: 1px #CCC solid; border-right: 1px #CCC solid;"><%= sellNum %> / <%= purchaseNum %></div>
+        <div style="border-bottom: 1px #CCC solid; border-right: 1px #CCC solid;"><%= cost %></div>
+        <div style="border-right: 1px #CCC solid;"><%= sales %></div>
+    </div>
+    <div style="float: left; width: 100px; text-align: center;">
+        <div><%= capitalStock %></div>
+        <div style="color: <%= attrs.gainColor %>;"><%= gain %></div>
+        <% if (hasError) { %>
+            <span title="<%= message %>" style="color: #F00; font-size: 8pt; cursor: pointer;">ペナルティ発生</span>
+        <% } %>
+    </div>
+</td>
+</script>
+
+<script type="text/javascript" src="js/dev.js"></script>
+<script type="text/javascript">
+function startGame()
+{
+    ObentoMarket.Env.numOfDays(360).rule(2)
+        .weatherUrl('http://wkij-obento.herokuapp.com/api/weather');
+    ObentoMarket.start();
+    ResultTable.show();
+}
+</script>
+</body>
+</html>
