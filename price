@@ -1,0 +1,15 @@
+    function subminPri(product,otherPrice,obento,min){
+        minNow=min;
+        for (var i = 0; i < ids.length; i++) {
+            if(product[i]== obento){
+                if(minPri > otherPrice[i]){
+                    minNow = otherPrice[i]
+                }
+                else{
+                    minNow = minNow;
+                }
+            }
+        }
+        return minNow;
+    }
+ 
